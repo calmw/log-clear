@@ -1,12 +1,13 @@
 package main
 
 import (
-	"log"
-	"log-claer/clear"
+	"github.com/jasonlvhit/gocron"
+	"log-clear/clear"
 )
 
 func main() {
-	err := clear.DeleteLog("/log")
-	log.Println(err)
 
+	s := gocron.NewScheduler()
+	_ = s.Every(1800).Seconds().From(gocron.NextTick()).Do(clear.DeleteLog)
+	<-s.Start()
 }

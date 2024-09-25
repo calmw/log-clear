@@ -7,11 +7,12 @@ networks:
 
 services:
   clear_log:
-    image: calmw/clear_log:0.0.1
+    image: calmw/clear_log:0.0.5
     container_name: clear_log
     restart: always
     volumes:
       - /root/apps/node-deploy/.local/bsc/node0:/log
+#      - /root/apps/node-deploy-copy2/.local/bsc/node0:/log
     networks:
       - clear_log_network
     logging:

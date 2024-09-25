@@ -3,7 +3,7 @@ package clear
 import (
 	"fmt"
 	"log"
-	"log-claer/utils"
+	"log-clear/utils"
 	"os"
 	"sort"
 	"strconv"
@@ -13,10 +13,11 @@ import (
 
 // DeleteLog 删除过期文件
 // /root/apps/node-deploy/.local/bsc/node0
-func DeleteLog(directory string) error {
-	files, err := os.ReadDir(directory)
+func DeleteLog() error {
+	var logDir = "/log"
+	files, err := os.ReadDir(logDir)
 	if err != nil {
-		log.Printf("Error reading directory: %s\n", err)
+		log.Printf("Error reading logDir: %s\n", err)
 		return err
 	}
 
@@ -35,7 +36,6 @@ func DeleteLog(directory string) error {
 		}
 		fileNameSlic := strings.Split(fileName, ".log.")
 		dateIndex := strings.Split(fileNameSlic[1], "_")
-		log.Println(dateIndex)
 		timeStamp, err := parseTime(dateIndex[0])
 		if err != nil {
 			return err
@@ -45,7 +45,6 @@ func DeleteLog(directory string) error {
 			return err
 		}
 		index := timeStamp + int64(i)
-		log.Println(timeStamp, index)
 
 		fileMap[index] = file
 		fileIndexSli = append(fileIndexSli, index)
@@ -55,11 +54,9 @@ func DeleteLog(directory string) error {
 
 	maxNum := fileIndexSli.Len()
 
-	directory = strings.TrimRight(directory, "/")
-
 	for i, k := range fileIndexSli {
 		if i < maxNum-1 {
-			err = os.Remove(directory + "/" + fileMap[k].Name())
+			err = os.Remove(logDir + "/" + fileMap[k].Name())
 			if err != nil {
 				log.Printf("delete file error: %s\n", err)
 				return err
