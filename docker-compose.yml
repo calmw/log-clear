@@ -1,0 +1,26 @@
+# Copyright 2024 calm.wang@hotmail.com
+# SPDX-License-Identifier: LGPL-3.0-only
+version: '3.9'
+
+networks:
+  clear_log_network:
+
+services:
+  clear_log:
+    image: calmw/clear_log:0.0.1
+    container_name: clear_log
+    restart: always
+    volumes:
+      - /root/apps/node-deploy/.local/bsc/node0:/log
+    networks:
+      - clear_log_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "1"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
