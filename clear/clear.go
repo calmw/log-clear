@@ -16,8 +16,7 @@ var LogDir = "/log"
 // DeleteLog 删除过期文件
 // /root/apps/node-deploy/.local/bsc/node0
 func DeleteLog() error {
-	var logDir = "/log"
-	files, err := os.ReadDir(logDir)
+	files, err := os.ReadDir(LogDir)
 	if err != nil {
 		log.Printf("Error reading logDir: %s\n", err)
 		return err
@@ -58,7 +57,7 @@ func DeleteLog() error {
 
 	for i, k := range fileIndexSli {
 		if i < maxNum-1 {
-			err = os.Remove(logDir + "/" + fileMap[k].Name())
+			err = os.Remove(LogDir + "/" + fileMap[k].Name())
 			if err != nil {
 				log.Printf("delete file error: %s\n", err)
 				return err
