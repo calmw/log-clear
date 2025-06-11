@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+var LogDir = "/log"
+
 // DeleteLog 删除过期文件
 // /root/apps/node-deploy/.local/bsc/node0
 func DeleteLog() error {
